@@ -6,10 +6,6 @@ import csv
 import pandas as pd
 import numpy as np
 
-# TODO: move API-key to a file
-# TODO: make a class that maintains the state (e.g. API-key)
-#   - initialise with the API key
-# TODO: make a git repository
 # TODO: read rides directly from an activity app
 
 routefilename = 'data/Directions_from_Battery_Bikeway_New_York_NY_USA_to_' \
