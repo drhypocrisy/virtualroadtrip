@@ -5,6 +5,7 @@ from datetime import datetime
 import csv
 import pandas as pd
 import numpy as np
+import stravaio
 
 # TODO: read rides directly from an activity app
 
@@ -81,11 +82,14 @@ def draw_route(Route, draw_until='', verbose=0):
     sofar = steps[steps['done']]
     gmapfig.plot(sofar.latitude, sofar.longitude, 'red', edge_width=5)
     # TODO: text not yet visible, but markers are showing
-    for latitude, longitude, text in zip(Route.bikings.latitude, Route.bikings.longitude, Route.bikings.day):
-        gmapfig.marker(latitude, longitude, title=text, size=40)
+    for ind, (latitude, longitude, text) in enumerate(zip(Route.bikings.latitude, Route.bikings.longitude, Route.bikings.day)):
+        print(ind + 1, latitude, longitude, text)
+        gmapfig.marker(latitude, longitude, title=text,
+                       label=str(ind + 1),
+                       size=40)
     gmapfig.apikey = Route.apikey
     gmapfig.draw("map.html")
-    print(f"footer: #virtualroadtrip #bikeday{len(Route.bikings)} {Route.bikings.iloc[-1, 0]} {np.int(sum(Route.bikings['length']))} km")
+    print(f"footer: #virtualroadtrip #tripday{len(Route.bikings)} #{Route.bikings['type'].iloc[-1]} {Route.bikings.iloc[-1, 0]} {np.int(sum(Route.bikings['length']))} km")
 
 
 if __name__ == '__main__':
